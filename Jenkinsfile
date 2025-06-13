@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'M3' // Replace 'M3' with the name configured in Jenkins > Global Tool Configuration
+    }
     stages {
         stage('Checkout From Git') {
             steps {
