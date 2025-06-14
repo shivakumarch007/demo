@@ -48,13 +48,14 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    echo 'Docker Push Started'
-                    ssh '''
-                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${FULL_IMAGE_NAME}
-                    docker push springbootacr.azurecr.io/springboot:latest
-                    '''
+                   echo 'Docker Push Started'
+                     sh """
+                     docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${FULL_IMAGE}
+                     docker push ${FULL_IMAGE}
+                     """
+                      }
                 }
-            }
         }
+
     }
 }
