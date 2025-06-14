@@ -29,18 +29,18 @@ pipeline {
                      docker.build ("$IMAGE_NAME:$IMAGE_TAG")
                 }
             }
-        stage('Log into ACR'){
+        stage('Log into ACR') {
             steps {
                 withCredentials([
-                string(credentialsId: '	AZURE_USERNAME', variable: 'AZURE_USERNAME'),
-                string(credentialsId: 'AZURE_PASSWORD', variable: 'AZURE_PASSWORD')
-               ]) {
+                    string(credentialsId: '	AZURE_USERNAME', variable: 'AZURE_USERNAME'),
+                    string(credentialsId: 'AZURE_PASSWORD', variable: 'AZURE_PASSWORD')
+                ]) {
                 sh '''
-                echo "Logging into ACR..."
-                echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
-                '''
-                 }
-               }
+                  echo "Logging into ACR..."
+                  echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
+                  '''
+                   }
+                }
             }
         }
     }
