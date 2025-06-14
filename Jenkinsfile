@@ -15,9 +15,12 @@ pipeline {
                 sh 'mvn package'
             }
         } 
-        stage('Deploy') {
+        stage('Docker Build') {
             steps {
-                echo "deploy"
+                script {
+                     echo 'Docker Build Started'
+                     docker.build ("$IMAGE_NAME:$IMAGE_TAG")
+                }
             }
         }
     }
