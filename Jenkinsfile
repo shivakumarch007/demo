@@ -3,6 +3,10 @@ pipeline {
     tools {
         maven 'maven' // Replace 'M3' with the name configured in Jenkins > Global Tool Configuration
     }
+    environment {
+        IMAGE_NAME = "springboot"
+        IMAGE_TAG = "latest"
+    }
     stages {
         stage('Checkout From Git') {
             steps {
