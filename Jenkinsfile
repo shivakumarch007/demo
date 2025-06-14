@@ -5,7 +5,10 @@ pipeline {
     }
     environment {
         IMAGE_NAME = "springboot"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG =  "latest"
+        ACR_NAME = 'springbootacr'  // Replace with your ACR login server
+        IMAGE_NAME = 'myapp:latest'
+        FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
     stages {
         stage('Checkout From Git') {
@@ -25,6 +28,19 @@ pipeline {
                      echo 'Docker Build Started'
                      docker.build ("$IMAGE_NAME:$IMAGE_TAG")
                 }
+            }
+        stage('Log into ACR'){
+            steps {
+                withCredentials([
+                string(credentialsId: '	AZURE_USERNAME', variable: 'AZURE_USERNAME'),
+                string(credentialsId: 'AZURE_PASSWORD', variable: 'AZURE_PASSWORD')
+               ]) {
+                sh '''
+                echo "Logging into ACR..."
+                echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
+                '''
+                 }
+               }
             }
         }
     }
