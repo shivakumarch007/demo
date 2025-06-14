@@ -8,7 +8,8 @@ pipeline {
     environment {
         IMAGE_NAME = "springboot"
         IMAGE_TAG = "latest"
-        ACR_NAME = "springbootacr.azurecr.io" // Ensure this is your full ACR login server
+        ACR_NAME = "springbootacr" // Ensure this is your full ACR login server
+        ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
         FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
