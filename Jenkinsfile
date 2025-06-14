@@ -7,7 +7,6 @@ pipeline {
         IMAGE_NAME = "springboot"
         IMAGE_TAG =  "latest"
         ACR_NAME = 'springbootacr'  // Replace with your ACR login server
-        IMAGE_NAME = 'myapp:latest'
         FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
     stages {
