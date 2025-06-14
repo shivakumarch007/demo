@@ -34,15 +34,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Log into ACR') {
+        stage('Login to ACR') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'AZURE_USERNAME', variable: 'ACR_USER'),
-                    string(credentialsId: 'AZURE_PASSWORD', variable: 'ACR_PASS')
+                    usernamePassword(credentialsId: 'ACR_CREDS', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')
                 ]) {
                     sh '''
-                        echo "Logging into ACR..."
                         echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
                     '''
                 }
