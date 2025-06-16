@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "springboot"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "${BUILD_NUMBER}"  // Auto-increments each Jenkins build
         ACR_NAME = "springbootdemo.azurecr.io" // Ensure this is your full ACR login server
         FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
