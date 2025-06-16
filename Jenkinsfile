@@ -64,8 +64,9 @@ pipeline {
         }
         stage('Get AKS Credentials') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'azure-sp', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')])
+                withCredentials([usernamePassword(credentialsId: 'AKS_CREDS', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')])
                      {
+                    echo 'Getting AKS Credentials'
                      sh '''
                      az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant ${TENANT_ID}
                      az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${CLUSTER_NAME} --overwrite-existing
@@ -76,6 +77,7 @@ pipeline {
         stage('Deploy to AKS') {
             steps {
                script {
+                    echo 'Deploying to AKS'
                      sh """
                      sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' springboot-deployment.yaml
                      kubectl apply -f springboot-deployment.yaml
