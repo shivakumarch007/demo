@@ -40,9 +40,11 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'ACR_CREDS', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')
                 ]) {
-                    sh """
+                    withEnv(["ACR_NAME=springbootdemo.azurecr.io"]){
+                    sh '
                         echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
-                    """
+                    '
+                    }
                 }
             }
         }
