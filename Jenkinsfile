@@ -79,7 +79,7 @@ pipeline {
                     echo 'Deploying to AKS'
                      sh """
                      sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' springboot-deployment.yaml
-                     kubectl apply -f k8s/springboot-deployment.yaml
+                     kubectl apply -f k8s/spingboot-deployment.yaml
                      """
                 }
             }
