@@ -8,8 +8,9 @@ pipeline {
     environment {
         IMAGE_NAME = "springboot"
         IMAGE_TAG = "${BUILD_NUMBER}"  // Auto-increments each Jenkins build
-        ACR_NAME = "springbootdemo.azurecr.io" // Ensure this is your full ACR login server
+        ACR_NAME = 'springbootdemo.azurecr.io' // Ensure this is your full ACR login server
         FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
+        
     }
 
     stages {
@@ -39,9 +40,9 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'ACR_CREDS', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')
                 ]) {
-                    sh '''
+                    sh """
                         echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
-                    '''
+                    """
                 }
             }
         }
