@@ -10,7 +10,7 @@ pipeline {
         IMAGE_NAME = 'spingbootdemo'
         IMAGE_TAG = "${BUILD_NUMBER}"  // Auto-increments each Jenkins build
         ACR_NAME = 'spingbootdemo.azurecr.io' // Ensure this is your full ACR login server
-        FULL_IMAGE = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
+        FULL_IMAGE_NAME = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
         // AKS and Azure SP
         TENANT_ID = '01ec41c1-1d77-4daf-855f-de00da327022'       // <-- Replace with your actual tenant ID
         RESOURCE_GROUP = 'Demo'                                   // <-- Your AKS resource group
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo 'Docker Build Started'
-                    docker.build("${FULL_IMAGE}")
+                    docker.build("${FULL_IMAGE_NAME}")
                 }
             }
         }
@@ -56,7 +56,7 @@ pipeline {
                 script {
                    echo 'Docker Push Started'
                      sh """
-                     docker push ${FULL_IMAGE}
+                     docker push ${FULL_IMAGE_NAME}
                      """
                 }
             }
@@ -78,7 +78,7 @@ pipeline {
                script {
                     echo 'Deploying to AKS'
                      sh """
-                     sed -i 's|image: .*|image: ${FULL_IMAGE}|' springboot-deployment.yaml
+                     sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' springboot-deployment.yaml
                      kubectl apply -f springboot-deployment.yaml
                      """
                 }
