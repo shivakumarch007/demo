@@ -1,38 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-app
+  name: spingbootdemo-deployment
   labels:
-    app: springboot-app
+    app: spingbootdemo
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: springboot-app
+      app: spingbootdemo
   template:
     metadata:
       labels:
-        app: springboot-app
+        app: spingbootdemo
     spec:
       containers:
-      - name: springboot-app
-        image: spingbootdemo.azurecr.io/spingbootdemo:latest
+      - name: spingbootdemo-container
+        image: spingbootdemo.azurecr.io/spingbootdemo:latest  # will be replaced by sed in pipeline
         ports:
         - containerPort: 8080
       imagePullSecrets:
-      - name: AKS_CREDS
-
+      - name: ACR_CREDS   # Replace with your actual secret name if different
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot-app  
-  labels:
-    app: springboot-app
+  name: spingbootdemo-service
 spec:
   type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 8080
   selector:
-    app: springboot-app
+    app: spingbootdemo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
