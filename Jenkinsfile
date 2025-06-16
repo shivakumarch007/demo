@@ -8,7 +8,7 @@ pipeline {
     environment {
         // Docker and ACR
         IMAGE_NAME = 'spingbootdemo'
-        IMAGE_TAG = "${BUILD_NUMBER}"  // Auto-increments each Jenkins build
+        IMAGE_TAG = "latest"  // Auto-increments each Jenkins build
         ACR_NAME = 'spingbootdemo.azurecr.io' // Ensure this is your full ACR login server
         FULL_IMAGE_NAME = "${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
         // AKS and Azure SP
