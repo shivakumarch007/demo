@@ -45,9 +45,9 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'ACR_CREDS', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')
                 ]) {
-                    sh '''
+                    sh """
                         echo "$ACR_PASS" | docker login $ACR_NAME -u $ACR_USER --password-stdin
-                    '''
+                    """
                 }
             }
         }
@@ -79,7 +79,7 @@ pipeline {
                     echo 'Deploying to AKS'
                      sh """
                      sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' springboot-deployment.yaml
-                     kubectl apply -f springboot-deployment.yaml
+                     kubectl apply -f k8s/springboot-deployment.yaml
                      """
                 }
             }
