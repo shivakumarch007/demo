@@ -56,7 +56,6 @@ pipeline {
                 script {
                    echo 'Docker Push Started'
                      sh """
-                     docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${FULL_IMAGE}
                      docker push ${FULL_IMAGE}
                      """
                 }
