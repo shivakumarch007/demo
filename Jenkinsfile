@@ -7,9 +7,10 @@ pipeline {
 
     environment {
         // Docker and ACR
-        IMAGE_NAME = "spingbootdemo"
-        IMAGE_TAG = "${BUILD_NUMBER}"  // Auto-increments each Jenkins build
+        IMAGE_NAME = 'spingbootdemo'
+        IMAGE_TAG = '${BUILD_NUMBER}'  // Auto-increments each Jenkins build
         ACR_NAME = 'spingbootdemo.azurecr.io' // Ensure this is your full ACR login server
+        FULL_IMAGE = '${ACR_NAME}/${IMAGE_NAME}:${IMAGE_TAG}'
         // AKS and Azure SP
         TENANT_ID = '01ec41c1-1d77-4daf-855f-de00da327022'       // <-- Replace with your actual tenant ID
         RESOURCE_GROUP = 'Demo'                                   // <-- Your AKS resource group
