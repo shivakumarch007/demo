@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: springboot-app
-        image: spingbootdemo.azurecr.io/springboot:latest
+        image: spingbootdemo.azurecr.io/spingbootdemo:latest
         ports:
         - containerPort: 8080
       imagePullSecrets:
