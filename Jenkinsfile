@@ -78,8 +78,8 @@ pipeline {
                script {
                     echo 'Deploying to AKS'
                     sh """
-                    sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' k8s/spingbootdemo-deployment.yaml
-                    kubectl apply -f k8s/spingbootdemo-deployment.yaml
+                    sed -i 's|image: .*|image: ${FULL_IMAGE_NAME}|' k8s/sprinboot-deployment.yaml
+                    kubectl apply -f k8s/sprinboot-deployment.yaml
                     """
                 }
             }
